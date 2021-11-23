@@ -1,8 +1,9 @@
 import { useState, useRef } from "react"
 import send from "./send.svg"
 import loginSvg from "./login.svg"
+import logoutSvg from "./logout.svg"
 
-function PostWriter({username, setUsername}) {
+function PostWriter({ username, setUsername }) {
   const [content, setContent] = useState({ title: "", content: "", username: username })
 
   const sendBtn = useRef("")
@@ -24,22 +25,23 @@ function PostWriter({username, setUsername}) {
       return res.json();
     })
       .then(res => {
-        console.log(res) //TODO remove
-      if (res.status == 'success') {
-        titleField.current.value = "";
-        contentField.current.value = "";
-      }
-    })
+        if (res.status == 'success') {
+          titleField.current.value = "";
+          contentField.current.value = "";
+        }
+      })
       .catch(err => { console.log(err) });
   }
 
   const refreshContent = () => {
     setContent(
-      {...content, 
-      title: titleField.current.value, 
-      content: contentField.current.value, 
-      username: username}
-      );
+      {
+        ...content,
+        title: titleField.current.value,
+        content: contentField.current.value,
+        username: username
+      }
+    );
   }
 
   const login = () => {
@@ -71,6 +73,7 @@ function PostWriter({username, setUsername}) {
           </div>
 
           <div className="emojiContainer">
+            <input className="loginBtn btn" type="image" src={logoutSvg} onClick={logout} title="logout" />
             <input className="sendBtn btn" ref={sendBtn} type="image"
               onClick={() => {
                 var classList = sendBtn.current.classList
@@ -79,7 +82,7 @@ function PostWriter({username, setUsername}) {
                 classList.add("clicked");
                 refreshContent();
                 submit();
-              }} src={send} />
+              }} src={send} title="send"/>
           </div>
         </div>
         :
@@ -92,7 +95,7 @@ function PostWriter({username, setUsername}) {
           </div>
 
           <div className="emojiContainer">
-            <input className="loginBtn btn" type="image" src={loginSvg} onClick={login} />
+            <input className="loginBtn btn" type="image" src={loginSvg} onClick={login} title="login" />
           </div>
         </div>}
     </div >

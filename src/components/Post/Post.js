@@ -20,13 +20,7 @@ function Post({ postObject, username }) {
         },
         body: JSON.stringify(postObject)
       }
-    ).then(res => {
-      return res.json();
-    })
-      .then(res => {
-        console.log(res) //TODO handle success?
-      })
-      .catch(err => { console.log(err) }); //TODO handle error? TODO link for user
+    ).catch(err => { console.log(err) }); 
   }
 
   const inc = (emoji) => {
@@ -41,7 +35,6 @@ function Post({ postObject, username }) {
         postObject.reactions.cry = addOrRemove(postObject.reactions.cry, username);
         setCryCount(postObject.reactions.cry.length);
       }
-      console.log(postObject);
       updatePost();
     }
   }
@@ -65,7 +58,7 @@ function Post({ postObject, username }) {
           <span>{postObject.content}</span>
         </div>
         <div class="postUsername">
-          <a href="https://www.google.de">@{postObject.username}</a>
+        <span>@{postObject.username}</span>
         </div>
         <div class="emojiContainer">
           <Reaction emojiSvg={heart} count={heartCount} inc={() => inc("heart")} />
