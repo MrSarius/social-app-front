@@ -116,11 +116,15 @@ body{
 }
 
 .postTitle{
+    overflow-wrap: break-word;
+    hyphens: manual;
     grid-column: 1 / 4;
     grid-row: 1;
 }
 
 .postContent{
+    overflow-wrap: break-word;
+    hyphens: manual;
     grid-column: 1 / 4;
     grid-row: 2 / 4;
     padding-bottom: 40px;
