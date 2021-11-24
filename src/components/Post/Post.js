@@ -1,45 +1,36 @@
 import Reaction from "../Reaction/Reaction";
-import { useState } from "react";
 import heart from "./heart.svg"
 import laugh from "./laugh.svg"
 import cry from "./cry.svg"
 
-function Post({ postObject, username }) {
+function Post({ post, username, updateThisPost }) {
 
-  const [heartCount, setHeartCount] = useState(postObject.reactions.heart.length);
-  const [laughtCount, setLaughtCount] = useState(postObject.reactions.laugh.length);
-  const [cryCount, setCryCount] = useState(postObject.reactions.cry.length);
-
-  const updatePost = () => {
-    const url = `${process.env.REACT_APP_API}/posts`
-    fetch(url,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(postObject)
-      }
-    ).catch(err => { console.log(err) }); 
-  }
-
-  const inc = (emoji) => {
+  const reactWithEmoji = (emoji) => {
     if (username) {
-      if (emoji == "heart") {
-        postObject.reactions.heart = addOrRemove(postObject.reactions.heart, username);
-        setHeartCount(postObject.reactions.heart.length);
-      } else if (emoji == "laugh") {
-        postObject.reactions.laugh = addOrRemove(postObject.reactions.laugh, username);
-        setLaughtCount(postObject.reactions.laugh.length);
-      } else {
-        postObject.reactions.cry = addOrRemove(postObject.reactions.cry, username);
-        setCryCount(postObject.reactions.cry.length);
-      }
-      updatePost();
-    }
-  }
+      let newReactions = {...post.reactions};
+      let newPost = {...post};
 
-  const addOrRemove= (list, elem) => {
+      let newList = null;
+      if (emoji === "heart") {
+        newList = [...post.reactions.heart];
+        newList = addOrRemove(newList, username);
+        newReactions.heart = newList;
+      } else if (emoji === "laugh") {
+        newList = [...post.reactions.laugh];
+        newList = addOrRemove(newList, username);
+        newReactions.laugh = newList;
+      } else {
+        newList = [...post.reactions.cry];
+        newList = addOrRemove(newList, username);
+        newReactions.cry = newList;
+      }
+      newPost.reactions = newReactions
+      debugger;
+      updateThisPost(newPost);
+    }
+  };
+
+  const addOrRemove = (list, elem) => {
     if (list.includes(elem)) {
       list = list.filter(user => user !== elem);
     } else {
@@ -50,20 +41,30 @@ function Post({ postObject, username }) {
 
   return (
     <div className="Post">
-      <div class="postWrapper">
-        <div class="postTitle">
-          <h2>{postObject.title}</h2>
+      <div className="postWrapper">
+        <div className="postTitle">
+          <h2>{post.title}</h2>
         </div>
-        <div class="postContent">
-          <span>{postObject.content}</span>
+        <div className="postContent">
+          <span>{post.content}</span>
         </div>
-        <div class="postUsername">
-        <span>@{postObject.username}</span>
+        <div className="postUsername">
+          <span>@{post.username}</span>
         </div>
-        <div class="emojiContainer">
-          <Reaction emojiSvg={heart} count={heartCount} inc={() => inc("heart")} />
-          <Reaction emojiSvg={laugh} count={laughtCount} inc={() => inc("laugh")} />
-          <Reaction emojiSvg={cry} count={cryCount} inc={() => inc("cry")} />
+        <div className={"emojiContainer"}>
+
+          <Reaction image={heart} count={post.reactions.heart.length}
+            reactWithEmoji={() => reactWithEmoji("heart")}
+          />
+
+          <Reaction image={laugh} count={post.reactions.laugh.length}
+            reactWithEmoji={() => reactWithEmoji("laugh")}
+          />
+
+          <Reaction image={cry} count={post.reactions.cry.length}
+            reactWithEmoji={() => reactWithEmoji("cry")}
+          />
+
         </div>
       </div>
     </div>
