@@ -61,7 +61,6 @@ function Feed({ username, setUsername }) {
 
     useEffect(() => {
         fetchPosts();
-        setInterval(fetchPosts, 5000);
     }, [])
 
     return (
