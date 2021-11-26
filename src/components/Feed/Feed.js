@@ -18,15 +18,15 @@ function Feed({ username, setUsername }) {
                 body: JSON.stringify(post)
             })
 
-            res = await res.json();
+            res = await res.text();
 
-            if (res.status === 'success') {
-                return res.post;
+            if (res === 'success') {
+                return true;
             }
-            return null;
+            return false;
         } catch (e) {
             console.log("could not submit post", e);
-            return null
+            return false
         }
 
     };
@@ -34,7 +34,7 @@ function Feed({ username, setUsername }) {
     const addPostToFeed = async (post) => {
         let submittedPost = await submitPost(post);
         if (submittedPost) {
-            setPosts([submittedPost, ...posts]);
+            setPosts([post, ...posts]);
         }
     };
 

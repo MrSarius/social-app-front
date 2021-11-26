@@ -48,7 +48,12 @@ function PostWriter({ username, setUsername, addPostToFeed }) {
                 classList.remove("clicked")
                 void sendBtn.current.offsetWidth;
                 classList.add("clicked");
-                content = { title: titleField.current.value, content: contentField.current.value, username: username }
+                content = {
+                  title: titleField.current.value,
+                  content: contentField.current.value,
+                  username: username,
+                  reactions: { heart: [], laugh: [], cry: [] }
+                };
                 addPostToFeed(content);
                 titleField.current.value = "";
                 contentField.current.value = "";
