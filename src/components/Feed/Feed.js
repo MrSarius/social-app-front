@@ -61,7 +61,7 @@ function Feed({ username, setUsername }) {
 
     useEffect(() => {
         fetchPosts();
-        setInterval(fetchPosts, 5000); TODO enable in production
+        setInterval(fetchPosts, 5000);
     }, [])
 
     return (
