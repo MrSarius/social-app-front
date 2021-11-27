@@ -12,6 +12,7 @@ function Feed({ username, setUsername }) {
             const url = `${process.env.REACT_APP_API}/posts`;
             let res = await fetch(url, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 },
