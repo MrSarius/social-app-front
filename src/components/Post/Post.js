@@ -25,7 +25,6 @@ function Post({ post, username, updateThisPost }) {
         newReactions.cry = newList;
       }
       newPost.reactions = newReactions
-      debugger;
       updateThisPost(newPost);
     }
   };

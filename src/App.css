@@ -83,13 +83,13 @@ body{
 
 @keyframes wobble {
     0% {
-        scale: 100%;
+        transform: scale(1);
     }
     30% {
-        scale: 80%;
+        transform: scale(0.8);
     }
     100% {
-        scale: 100%;
+        transform: scale(1);
     }
 }
 
@@ -131,18 +131,21 @@ body{
 }
 
 @keyframes spin {
+    0% {
+        transform: rotate(0deg) scale(1)
+    }
     50% {
-        scale: 1.6;
+        transform: rotate(180deg) scale(1.6)
     }
     100% {
-        rotate: 360deg;
+        transform: rotate(360deg) scale(1)
     }
 }
 
 .rotate {
     animation-name: spin;
     animation-duration: 0.5s;
-    transition-timing-function: ease;
+    transition-timing-function: ease-in-out;
 }
 
 .btn {
@@ -160,7 +163,7 @@ body{
 }
 
 .btn:hover {
-    scale: 1.2;
+    transform: scale(1.2);
 }
 
 .postWrapperWelcome {
