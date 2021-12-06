@@ -154,7 +154,6 @@ body{
 }
 
 .sendBtn {
-    transform: scaleX(-1);
     margin: 11px;
 }
 
