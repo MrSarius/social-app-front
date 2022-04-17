@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <img className={"logo"} src={cloudFlareLogo} alt="Logo" />
-      <h1>Cloudflare Social App</h1>
+      <h1>Social App</h1>
       <Feed username={username} setUsername={setUsername} />
     </div>
   );
