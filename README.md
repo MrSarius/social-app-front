@@ -1,4 +1,4 @@
-# Scoial App Front End React App
+# Social App Front End React App
 
 Trying out Cloudflare's serverless Workers, Pages and KV stores.
 
